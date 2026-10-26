@@ -6,8 +6,25 @@ export class DurationUtils {
     }
 
     const date = new Date(value);
+    if (Number.isNaN(date.getTime())) {
+      return false;
+    }
 
-    return !Number.isNaN(date.getTime());
+    const year = parseInt(value.slice(0, 4), 10);
+    const month = parseInt(value.slice(5, 7), 10);
+    const day = parseInt(value.slice(8, 10), 10);
+    const hours = parseInt(value.slice(11, 13), 10);
+    const minutes = parseInt(value.slice(14, 16), 10);
+    const seconds = parseInt(value.slice(17, 19), 10);
+
+    if (month < 1 || month > 12 || hours > 23 || minutes > 59 || seconds > 59) {
+      return false;
+    }
+
+    const isLeapYear = (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0;
+    const daysInMonth = [31, isLeapYear ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+
+    return day >= 1 && day <= daysInMonth[month - 1];
   }
 
   static convertToMilliseconds(amount: number, unit: string): number {
