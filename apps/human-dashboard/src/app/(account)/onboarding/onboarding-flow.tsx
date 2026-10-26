@@ -198,6 +198,9 @@ function describeFigure(step: OnboardingStep): string {
   if (step === 'address') {
     return 'fig. 01  naming';
   }
+  if (step === 'connect') {
+    return 'fig. 03  waiting';
+  }
 
   return step === 'reach' ? 'fig. 04  issued and connected' : 'fig. 02  issued';
 }
